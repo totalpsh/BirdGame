@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     static public GameManager Instance;
 
     public GameObject wallPrefab;
+    public GameObject capsulePrefab;
+    public GameObject isometricPrefab;
+
     public float spawnTerm = 4;
 
     public TextMeshProUGUI scoreLabel;
@@ -37,10 +40,26 @@ public class GameManager : MonoBehaviour
         scoreLabel.text = ((int)score).ToString();
         if(spawnTimer > spawnTerm)
         {
-            spawnTimer -= spawnTerm;
+            int wallType = Random.Range(1, 4);
+            Debug.Log(wallType);
+            switch(wallType)
+            {
+                case 1:
+                 GameObject wallprefab = Instantiate(wallPrefab);
+                 wallprefab.transform.position = new Vector2(10, Random.Range(-2.75f, 2.75f));
+                    break;
 
-            GameObject obj = Instantiate(wallPrefab);
-            obj.transform.position = new Vector2(10, Random.Range(-2.75f, 2.75f));
+                case 2:
+                 GameObject capsuleprefab = Instantiate(capsulePrefab);
+                 capsuleprefab.transform.position = new Vector2(10, Random.Range(-2.75f, 2.75f));
+                    break;
+
+                case 3:
+                    GameObject isometricprefab = Instantiate(isometricPrefab);
+                    isometricPrefab.transform.position = new Vector2(10, Random.Range(-2.75f, 2.75f));
+                    break;
+            }
+            spawnTimer -= spawnTerm;
         }
     }
 }
